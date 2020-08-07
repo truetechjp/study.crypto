@@ -27,7 +27,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-public class Crypto {
+public class CryptoDemo {
     
     static private final String KEYPAIR_ALGORITHM = "RSA";
     static private final String SECRETKEY_ALGORITHM = "AES";
@@ -114,7 +114,7 @@ public class Crypto {
         PrivateKey privateKey = generatePrivateKey(load(privateKeyFile));
         SecretKey secretKey = unwrapSecretKey(load(secretKeyFile), privateKey);
         byte[] iv = decodeBase64(ivB64);
-        byte[] encrypted = new Crypto().encrypt(secretKey, iv, plainText.getBytes());
+        byte[] encrypted = new CryptoDemo().encrypt(secretKey, iv, plainText.getBytes());
         log("iv: " + ivB64);
         log("encrypted: " + encodeToBase64String(encrypted));
     }
@@ -125,7 +125,7 @@ public class Crypto {
         log("privateKeyFile: " + privateKeyFile);
         PrivateKey privateKey = generatePrivateKey(load(privateKeyFile));
         SecretKey secretKey = unwrapSecretKey(load(secretKeyFile), privateKey);
-        byte[] decrypted = new Crypto().decrypt(secretKey, decodeBase64(ivB64), decodeBase64(encryptedB64));
+        byte[] decrypted = new CryptoDemo().decrypt(secretKey, decodeBase64(ivB64), decodeBase64(encryptedB64));
         log("iv: " + ivB64);
         log("decrypted: " + new String(decrypted));
     }
