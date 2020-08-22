@@ -27,6 +27,6 @@ public class KeyLoader {
         PrivateKey privateKey = factory.generatePrivate(new PKCS8EncodedKeySpec(privateKeyBytes));
         Cipher cipher = Cipher.getInstance("RSA");
         cipher.init(Cipher.UNWRAP_MODE, privateKey);
-        return (SecretKey) cipher.unwrap(wrappedKeyBytes, "RSA", Cipher.SECRET_KEY);
+        return (SecretKey) cipher.unwrap(wrappedKeyBytes, "AES", Cipher.SECRET_KEY);
     }
 }

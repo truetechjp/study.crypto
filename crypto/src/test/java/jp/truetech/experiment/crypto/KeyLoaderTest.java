@@ -51,6 +51,7 @@ public class KeyLoaderTest {
         byte[] privateKey = Base64.getDecoder().decode(privateKeyB64);
         byte[] wrappedKey = Base64.getDecoder().decode(wrappedKeyB64);
         SecretKey secretKey = new KeyLoader().loadSecretKey(privateKey, wrappedKey);
+        assertThat(secretKey.getAlgorithm(), is("AES"));
         Crypto.setSecretKey(secretKey);
 
         String ivB64 = "2k/I0KZNPl4+3ySkfRtHxg==";
@@ -62,5 +63,9 @@ public class KeyLoaderTest {
                 Base64.getDecoder().decode(ivB64)));
         System.out.println(decrypted);
         assertThat(decrypted, is(plain));
+
+        String actual = Base64.getEncoder()
+                .encodeToString(Crypto.encrypt(plain.getBytes(), Base64.getDecoder().decode(ivB64)));
+        assertThat(actual, is(encryptedB64));
     }
 }
